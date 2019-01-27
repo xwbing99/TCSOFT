@@ -1,0 +1,80 @@
+{
+  "ReRoutes": [
+    // Web_API_A_V1
+    // --> swagger part
+    {
+      "DownstreamPathTemplate": "/swagger/webapia/swagger.json",
+      "DownstreamScheme": "https",
+      "ServiceName": "Web_API_A_V1",
+      "LoadBalancer": "RoundRobin",
+      "UseServiceDiscovery": true,
+      "UpstreamPathTemplate": "/swagger/webapia/swagger.json",
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/values",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44318
+        }
+      ],
+      "UpstreamPathTemplate": "/swagger/webapia/values",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    // Web_API_B_V1
+    // --> swagger part
+    {
+      "DownstreamPathTemplate": "/swagger/webapib/swagger.json",
+      "DownstreamScheme": "https",
+      "ServiceName": "Web_API_B_V1",
+      "LoadBalancer": "RoundRobin",
+      "UseServiceDiscovery": true,
+      "UpstreamPathTemplate": "/swagger/webapib/swagger.json",
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/values",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44361
+        }
+      ],
+      "UpstreamPathTemplate": "/swagger/webapib/values",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    // COUNTER API
+    // --> swagger part
+    {
+      "DownstreamPathTemplate": "/swagger/count/swagger.json",
+      "DownstreamScheme": "https",
+      "ServiceName": "COUNTER",
+      "LoadBalancer": "RoundRobin",
+      "UseServiceDiscovery": true,
+      "UpstreamPathTemplate": "/swagger/count/swagger.json",
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Counter/Count",
+      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/count",
+      "UpstreamHttpMethod": [ "Get" ],
+      "ServiceName": "Count",
+      "LoadBalancerOptions": {
+        "type": "RoundRobin"
+      },
+      "UseServiceDiscovery": true
+    }
+  ],
+  "GlobalConfiguration": {
+    "ServiceDiscoveryProvider": {
+      "Host": "localhost",
+      "Port": 8500,
+      "Type": "Consul"
+    },
+    "BaseUrl": "https://localhost:44391"
+  }
+}

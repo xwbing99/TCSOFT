@@ -1,0 +1,46 @@
+{
+  "ReRoutes": [
+    {
+      "DownstreamPathTemplate": "/UsersApi/swagger.json",
+      "DownstreamScheme": "https",
+      "ServiceName": "UsersApi",
+      "LoadBalancer": "RoundRobin",
+      "UseServiceDiscovery": true,
+      "UpstreamPathTemplate": "/UsersApi/swagger.json",
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/{url}",
+      "DownstreamScheme": "https",
+      "ServiceName": "UsersApi",
+      "LoadBalancer": "RoundRobin",
+      "UseServiceDiscovery": true,
+      "UpstreamPathTemplate": "/UsersApi/{url}",
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/BasicDataApi/swagger.json",
+      "DownstreamScheme": "https",
+      "ServiceName": "BasicDataApi",
+      "LoadBalancer": "RoundRobin",
+      "UseServiceDiscovery": true,
+      "UpstreamPathTemplate": "/BasicDataApi/swagger.json",
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/{url}",
+      "DownstreamScheme": "https",
+      "ServiceName": "BasicDataApi",
+      "LoadBalancer": "RoundRobin",
+      "UseServiceDiscovery": true,
+      "UpstreamPathTemplate": "/BasicDataApi/{url}",
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT" ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "ServiceDiscoveryProvider": {
+      "Host": "127.0.0.1",
+      "Port": 8500
+    }
+  }
+}
