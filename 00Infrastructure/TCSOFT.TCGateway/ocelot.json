@@ -2,7 +2,7 @@
   "ReRoutes": [
     {
       "DownstreamPathTemplate": "/UsersApi/swagger.json",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "ServiceName": "UsersApi",
       "LoadBalancer": "RoundRobin",
       "UseServiceDiscovery": true,
@@ -11,7 +11,7 @@
     },
     {
       "DownstreamPathTemplate": "/api/{url}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "ServiceName": "UsersApi",
       "LoadBalancer": "RoundRobin",
       "UseServiceDiscovery": true,
@@ -20,7 +20,7 @@
     },
     {
       "DownstreamPathTemplate": "/BasicDataApi/swagger.json",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "ServiceName": "BasicDataApi",
       "LoadBalancer": "RoundRobin",
       "UseServiceDiscovery": true,
@@ -29,7 +29,7 @@
     },
     {
       "DownstreamPathTemplate": "/api/{url}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "ServiceName": "BasicDataApi",
       "LoadBalancer": "RoundRobin",
       "UseServiceDiscovery": true,
@@ -39,7 +39,7 @@
   ],
   "GlobalConfiguration": {
     "ServiceDiscoveryProvider": {
-      "Host": "127.0.0.1",
+      "Host": "localhost",
       "Port": 8500
     }
   }

@@ -64,17 +64,5 @@
             <param name="env">环境</param>
             <param name="appLifeTime">生命周期</param>
         </member>
-        <member name="M:UsersApi.Startup.ConsulApp(Microsoft.AspNetCore.Hosting.IApplicationLifetime)">
-            <summary>
-            注册到Consul
-            </summary>
-            <param name="appLifeTime">生命周期</param>
-        </member>
-        <member name="M:UsersApi.Startup.ConsulConfig(Consul.ConsulClientConfiguration)">
-            <summary>
-            Consul配置委托
-            </summary>
-            <param name="config">配置项</param>
-        </member>
     </members>
 </doc>

@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
+using TCSOFT.Consul;
+
 namespace UsersApi
 {
     /// <summary>
@@ -31,6 +33,13 @@ namespace UsersApi
         /// <returns></returns>
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration(cb =>
+                {
+                    var configuration = cb.Build();
+                    //加载Consul配置中心相关配置
+                    cb.AddConsul(new[] { configuration["ConfigCenter:Uri"] }
+                                , $"{ configuration["ConfigCenter:Tag"] }/{ configuration["ConfigCenter:path"] }");
+                })
                 .UseStartup<Startup>();
     }
 }

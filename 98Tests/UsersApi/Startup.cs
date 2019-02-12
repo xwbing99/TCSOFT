@@ -46,13 +46,18 @@ namespace UsersApi
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc(Configuration["Swagger:Name"]
-                    , new Info { Title = Configuration["Swagger:Info:Title"]
-                                , Version = Configuration["Swagger:Info:Version"]
+                    , new Info
+                    {
+                        Title = Configuration["Swagger:Info:Title"]
+                                ,
+                        Version = Configuration["Swagger:Info:Version"]
                     });
                 var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);
                 var xmlPath = Path.Combine(basePath, Configuration["Swagger:XmlDocName"]);
                 options.IncludeXmlComments(xmlPath);
             });
+
+            services.AddOptions();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -90,58 +95,8 @@ namespace UsersApi
             });
 
             //注册到Consul
-            ConsulApp(appLifeTime);
+            TCSOFT.Consul.ConsulRegister consulRegister = new TCSOFT.Consul.ConsulRegister();
+            consulRegister.ConsulApp(appLifeTime, Configuration);
         }
-
-        #region "注册到Consul"
-        /// <summary>
-        /// 注册到Consul
-        /// </summary>
-        /// <param name="appLifeTime">生命周期</param>
-        private void ConsulApp(IApplicationLifetime appLifeTime)
-        {
-            //注册Consul 
-            using (var consulClient = new ConsulClient(ConsulConfig))
-            {
-                AgentServiceRegistration asr = new AgentServiceRegistration
-                {
-                    Address = Configuration["Consul:Checker:IP"],
-                    Port = Convert.ToInt32(Configuration["Consul:Checker:Port"]),
-                    ID = Configuration["Consul:ServiceId"] + Guid.NewGuid(),
-                    Name = Configuration["Consul:ServiceName"],
-                    Check = new AgentServiceCheck
-                    {
-                        DeregisterCriticalServiceAfter = TimeSpan.FromSeconds(5),
-                        HTTP = $"{Configuration["Consul:Checker:Protocol"]}://{Configuration["Consul:Checker:IP"]}:{Configuration["Consul:Checker:Port"]}/{Configuration["Consul:Checker:Uri"]}",
-                        Interval = TimeSpan.FromSeconds(10),
-                        Timeout = TimeSpan.FromSeconds(5)
-                    },
-                    Tags = new string[] { Configuration["Consul:Tag"] }
-                };
-                consulClient.Agent.ServiceRegister(asr).Wait();
-
-            }
-
-            //注销Consul 
-            appLifeTime.ApplicationStopped.Register(() =>
-            {
-                using (var consulClient = new ConsulClient(ConsulConfig))
-                {
-                    Console.WriteLine("应用退出，开始从consul注销");
-                    consulClient.Agent.ServiceDeregister(Configuration["Consul:ServiceId"]).Wait();
-                }
-            });
-        }
-
-        /// <summary>
-        /// Consul配置委托
-        /// </summary>
-        /// <param name="config">配置项</param>
-        private void ConsulConfig(ConsulClientConfiguration config)
-        {
-            config.Address = new Uri(Configuration["Consul:ServerUrl"]); 
-            config.Datacenter = Configuration["Consul:DataCenter"];
-        }
-        #endregion "注册到Consul"
     }
 }
