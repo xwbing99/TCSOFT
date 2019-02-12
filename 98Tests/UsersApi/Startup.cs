@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-
-using Consul;
 using Swashbuckle.AspNetCore.Swagger;
+using System.IO;
+using TCSOFT.Consul;
 
 namespace UsersApi
 {
@@ -22,6 +15,12 @@ namespace UsersApi
     /// </summary>
     public class Startup
     {
+
+        /// <summary>
+        /// 配置读取对象
+        /// </summary>
+        public IConfiguration Configuration { get; }
+
         /// <summary>
         /// 构造函数-配置对象赋值
         /// </summary>
@@ -30,11 +29,6 @@ namespace UsersApi
         {
             Configuration = configuration;
         }
-
-        /// <summary>
-        /// 配置读取对象
-        /// </summary>
-        public IConfiguration Configuration { get; }
 
         /// <summary>
         /// 服务配置
@@ -58,6 +52,7 @@ namespace UsersApi
             });
 
             services.AddOptions();
+            services.Configure<ConsulRegisterOptions>(Configuration.GetSection($"{Configuration["ConfigCenter:Tag"]}:{Configuration["ConfigCenter:path"]}"));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -68,7 +63,11 @@ namespace UsersApi
         /// <param name="app">构建器</param>
         /// <param name="env">环境</param>
         /// <param name="appLifeTime">生命周期</param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime appLifeTime)
+        /// <param name="consulRegisterOptions">配置选项</param>
+        public void Configure(IApplicationBuilder app
+                                , IHostingEnvironment env
+                                , IApplicationLifetime appLifeTime
+                                , IOptions<ConsulRegisterOptions> consulRegisterOptions)
         {
             if (env.IsDevelopment())
             {
@@ -95,8 +94,8 @@ namespace UsersApi
             });
 
             //注册到Consul
-            TCSOFT.Consul.ConsulRegister consulRegister = new TCSOFT.Consul.ConsulRegister();
-            consulRegister.ConsulApp(appLifeTime, Configuration);
+            TCSOFT.Consul.ConsulServiceRegister consulRegister = new TCSOFT.Consul.ConsulServiceRegister();
+            consulRegister.ConsulApp(appLifeTime, consulRegisterOptions);
         }
     }
 }

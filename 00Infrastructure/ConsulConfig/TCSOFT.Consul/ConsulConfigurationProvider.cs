@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace TCSOFT.Consul
 {
+    /// <summary>
+    /// Consul配置器
+    /// </summary>
     public class ConsulConfigurationProvider : ConfigurationProvider
     {
         private const string ConsulIndexHeader = "X-Consul-Index";
@@ -21,6 +24,11 @@ namespace TCSOFT.Consul
         private int _failureCount;
         private int _consulConfigurationIndex;
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="consulUrls">Consul配置中心地址</param>
+        /// <param name="path">配置项路径</param>
         public ConsulConfigurationProvider(IEnumerable<Uri> consulUrls, string path)
         {
             _path = path;
@@ -34,7 +42,15 @@ namespace TCSOFT.Consul
             _configurationListeningTask = new Task(ListenToConfigurationChanges);
         }
 
+        /// <summary>
+        /// 加载配置
+        /// </summary>
         public override void Load() => LoadAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+
+        /// <summary>
+        /// 异步加载
+        /// </summary>
+        /// <returns></returns>
         private async Task LoadAsync()
         {
             Data = await ExecuteQueryAsync();
@@ -42,6 +58,9 @@ namespace TCSOFT.Consul
                 _configurationListeningTask.Start();
         }
 
+        /// <summary>
+        /// 配置变更侦听
+        /// </summary>
         private async void ListenToConfigurationChanges()
         {
             while (true)
@@ -70,6 +89,11 @@ namespace TCSOFT.Consul
             }
         }
 
+        /// <summary>
+        /// 配置获取
+        /// </summary>
+        /// <param name="isBlocking">是否阻塞</param>
+        /// <returns></returns>
         private async Task<IDictionary<string, string>> ExecuteQueryAsync(bool isBlocking = false)
         {
             var requestUri = isBlocking ? $"?recurse=true&index={_consulConfigurationIndex}" : "?recurse=true";
@@ -97,6 +121,11 @@ namespace TCSOFT.Consul
             }
         }
 
+        /// <summary>
+        /// 配置扁平化
+        /// </summary>
+        /// <param name="tuple">树状配置对象</param>
+        /// <returns></returns>
         private static IEnumerable<KeyValuePair<string, string>> Flatten(KeyValuePair<string, JToken> tuple)
         {
             if (!(tuple.Value is JObject value))
