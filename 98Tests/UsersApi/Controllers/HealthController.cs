@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using System;
 using TCSOFT.Consul;
+using TCSOFT.WebCore;
 
 namespace UsersApi.Controllers
 {
@@ -13,27 +14,14 @@ namespace UsersApi.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    public class HealthController : ControllerBase
+    public class HealthController : TCBaseController
     {
-        /// <summary>
-        /// 应用生命周期
-        /// </summary>
-        public IApplicationLifetime AppLifeTime { get; }
-        /// <summary>
-        /// 配置选项
-        /// </summary>
-        public IOptionsSnapshot<ConsulRegisterOptions> OptionsConsulRegister { get; }
 
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="appLifeTime">应用生命周期</param>
-        /// <param name="options">配置项</param>
         public HealthController(IApplicationLifetime appLifeTime
-                                , IOptionsSnapshot<ConsulRegisterOptions> options)
+                                , IOptionsSnapshot<ConsulRegisterOptions> options) : base(appLifeTime, options)
         {
-            AppLifeTime = appLifeTime;
-            OptionsConsulRegister = options;
+            //AppLifeTime = appLifeTime;
+            //OptionsConsulRegister = options;
         }
 
         /// <summary>

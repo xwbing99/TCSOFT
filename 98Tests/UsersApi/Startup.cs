@@ -52,7 +52,7 @@ namespace UsersApi
             });
 
             services.AddOptions();
-            services.Configure<ConsulRegisterOptions>(Configuration.GetSection($"{Configuration["ConfigCenter:Tag"]}:{Configuration["ConfigCenter:path"]}"));
+            services.Configure<ConsulRegisterOptions>(Configuration.GetSection(Configuration["ConfigCenter:path"].Replace("/", ":")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

@@ -22,7 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\00Infrastructure\ConsulConfig\TCSOFT.Consul\TCSOFT.Consul.csproj" />
+    <ProjectReference Include="..\..\00Infrastructure\TCSOFT.Consul\TCSOFT.Consul.csproj" />
+    <ProjectReference Include="..\..\00Infrastructure\TCSOFT.WebCore\TCSOFT.WebCore.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -38,7 +38,7 @@ namespace UsersApi
                     var configuration = cb.Build();
                     //加载Consul配置中心相关配置
                     cb.AddConsul(new[] { configuration["ConfigCenter:Uri"] }
-                                , $"{ configuration["ConfigCenter:Tag"] }/{ configuration["ConfigCenter:path"] }");
+                                , configuration["ConfigCenter:path"]);
                 })
                 .UseStartup<Startup>();
     }
