@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using Ocelot.Provider.Consul;
-using Swashbuckle.AspNetCore;
 using Swashbuckle.AspNetCore.Swagger;
+using System;
+using System.Collections.Generic;
 
 namespace TCSOFT.TCGateway
 {
@@ -32,14 +25,15 @@ namespace TCSOFT.TCGateway
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOcelot(new ConfigurationBuilder()
-                    .AddJsonFile("ocelot.json", optional: true, reloadOnChange: true)
-                    .Build()).AddConsul();
+                                .AddJsonFile("ocelot.json", optional: true, reloadOnChange: true)
+                                .Build())
+                    .AddConsul();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("ApiGateway", new Info { Title = "网关服务", Version = "v1" });
+                options.SwaggerDoc("TCApiGateway", new Info { Title = "同驰网关服务", Version = "v1" });
             });
         }
 
@@ -66,7 +60,7 @@ namespace TCSOFT.TCGateway
                         c.Address = new Uri($"http://{Configuration["ConsulServer:IP"]}:{Configuration["ConsulServer:Port"]}");
                     }))
             {
-                //取在Consul注册的全部服务
+                //取得在Consul注册的全部服务
                 var services = consul.Agent.Services().Result.Response;
                 foreach (var s in services.Values)
                 {

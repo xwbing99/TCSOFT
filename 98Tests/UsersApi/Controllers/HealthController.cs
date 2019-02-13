@@ -16,12 +16,16 @@ namespace UsersApi.Controllers
     [ApiController]
     public class HealthController : TCBaseController
     {
-
-        public HealthController(IApplicationLifetime appLifeTime
-                                , IOptionsSnapshot<ConsulRegisterOptions> options) : base(appLifeTime, options)
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="configuration">基本配置</param>
+        /// <param name="appLifeTime">应用生命周期</param>
+        /// <param name="options">Consul注册配置项</param>
+        public HealthController(IConfiguration configuration
+                                , IApplicationLifetime appLifeTime
+                                , IOptionsSnapshot<ConsulRegisterOptions> options) : base(configuration, appLifeTime, options)
         {
-            //AppLifeTime = appLifeTime;
-            //OptionsConsulRegister = options;
         }
 
         /// <summary>
@@ -35,7 +39,11 @@ namespace UsersApi.Controllers
             if (OptionsConsulRegister.Value.ReRegister)
             {
                 TCSOFT.Consul.ConsulServiceRegister csRegister = new ConsulServiceRegister();
-                csRegister.ConsulApp(AppLifeTime, OptionsConsulRegister);
+
+                //注销原服务
+                csRegister.ConsulUnRegister(Configuration);
+                //重注册
+                csRegister.ConsulRegister(Configuration, AppLifeTime, OptionsConsulRegister);
             }
             return true;
         }

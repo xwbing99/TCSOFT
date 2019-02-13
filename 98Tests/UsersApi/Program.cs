@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
 using TCSOFT.Consul;
 
@@ -33,11 +26,12 @@ namespace UsersApi
         /// <returns></returns>
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration(cb =>
+                .ConfigureAppConfiguration((hostContext, configBuilder) =>
                 {
-                    var configuration = cb.Build();
+                    var configuration = configBuilder.Build();
+
                     //加载Consul配置中心相关配置
-                    cb.AddConsul(new[] { configuration["ConfigCenter:Uri"] }
+                    configBuilder.AddConsul(new[] { configuration["ConfigCenter:Uri"] }
                                 , configuration["ConfigCenter:path"]);
                 })
                 .UseStartup<Startup>();

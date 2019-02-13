@@ -15,7 +15,6 @@ namespace UsersApi
     /// </summary>
     public class Startup
     {
-
         /// <summary>
         /// 配置读取对象
         /// </summary>
@@ -95,7 +94,7 @@ namespace UsersApi
 
             //注册到Consul
             TCSOFT.Consul.ConsulServiceRegister consulRegister = new TCSOFT.Consul.ConsulServiceRegister();
-            consulRegister.ConsulApp(appLifeTime, consulRegisterOptions);
+            consulRegister.ConsulRegister(Configuration, appLifeTime, consulRegisterOptions);
         }
     }
 }

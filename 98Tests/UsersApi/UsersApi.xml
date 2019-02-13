@@ -10,21 +10,27 @@
             服务健康检查控制器
             </summary>
         </member>
-        <member name="P:UsersApi.Controllers.HealthController.AppLifeTime">
+        <member name="M:UsersApi.Controllers.HealthController.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.AspNetCore.Hosting.IApplicationLifetime,Microsoft.Extensions.Options.IOptionsSnapshot{TCSOFT.Consul.ConsulRegisterOptions})">
             <summary>
-            应用生命周期
+            构造函数
             </summary>
-        </member>
-        <member name="P:UsersApi.Controllers.HealthController.OptionsConsulRegister">
-            <summary>
-            配置选项
-            </summary>
+            <param name="configuration">基本配置</param>
+            <param name="appLifeTime">应用生命周期</param>
+            <param name="options">Consul注册配置项</param>
         </member>
         <member name="M:UsersApi.Controllers.HealthController.Get">
             <summary>
             健康检查
             </summary>
             <returns>是否可用</returns>
+        </member>
+        <member name="M:UsersApi.Controllers.ValuesController.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.AspNetCore.Hosting.IApplicationLifetime,Microsoft.Extensions.Options.IOptionsSnapshot{TCSOFT.Consul.ConsulRegisterOptions})">
+            <summary>
+            构造函数
+            </summary>
+            <param name="configuration">基本配置</param>
+            <param name="appLifeTime">应用生命周期</param>
+            <param name="options">Consul注册配置项</param>
         </member>
         <member name="T:UsersApi.Program">
             <summary>
