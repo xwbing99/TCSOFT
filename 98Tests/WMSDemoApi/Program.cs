@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 
 using TCSOFT.Consul;
 
-namespace UsersApi
+namespace WMSDemoApi
 {
     /// <summary>
     /// 主线程

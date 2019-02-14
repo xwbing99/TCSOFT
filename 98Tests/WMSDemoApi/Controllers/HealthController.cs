@@ -6,7 +6,7 @@ using System;
 using TCSOFT.Consul;
 using TCSOFT.WebCore;
 
-namespace UsersApi.Controllers
+namespace WMSDemoApi.Controllers
 {
     /// <summary>
     /// @author herowk

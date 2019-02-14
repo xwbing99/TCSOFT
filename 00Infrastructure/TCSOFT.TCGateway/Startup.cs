@@ -52,15 +52,13 @@ namespace TCSOFT.TCGateway
 
             app.UseHttpsRedirection();
 
-
+            //取得在Consul注册的全部服务
             var apis = new List<string>();
-
             using (var consul = new Consul.ConsulClient(c =>
                     {
                         c.Address = new Uri($"http://{Configuration["ConsulServer:IP"]}:{Configuration["ConsulServer:Port"]}");
                     }))
             {
-                //取得在Consul注册的全部服务
                 var services = consul.Agent.Services().Result.Response;
                 foreach (var s in services.Values)
                 {

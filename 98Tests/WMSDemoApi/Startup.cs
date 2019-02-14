@@ -6,9 +6,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using System.IO;
+using System.Text;
 using TCSOFT.Consul;
 
-namespace UsersApi
+namespace WMSDemoApi
 {
     /// <summary>
     /// @author herowk
@@ -41,9 +42,15 @@ namespace UsersApi
                 options.SwaggerDoc(Configuration["Swagger:Name"]
                     , new Info
                     {
-                        Title = Configuration["Swagger:Info:Title"]
-                                ,
-                        Version = Configuration["Swagger:Info:Version"]
+                        Title = Configuration["Swagger:Info:Title"],
+                        Version = Configuration["Swagger:Info:Version"],
+                        Description = Configuration["Swagger:Info:Description"],
+                        TermsOfService = Configuration["Swagger:Info:TermsOfService"],
+                        Contact = new Contact
+                        {
+                            Name = Configuration["Swagger:Info:ContactName"],
+                            Email = Configuration["Swagger:Info:ContactEmail"]
+                        }
                     });
                 var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);
                 var xmlPath = Path.Combine(basePath, Configuration["Swagger:XmlDocName"]);
