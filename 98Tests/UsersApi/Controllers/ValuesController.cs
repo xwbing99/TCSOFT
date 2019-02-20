@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
@@ -7,14 +6,13 @@ using System.Collections.Generic;
 using TCSOFT.Consul;
 using TCSOFT.WebCore;
 
-namespace WMSDemoApi.Controllers
+namespace UsersApi.Controllers
 {
     /// <summary>
     /// API示例
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class ValuesController : TCBaseController
     {
         private static string userForPut = string.Empty;
@@ -35,7 +33,6 @@ namespace WMSDemoApi.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            var claims = User.Claims;
             return new string[] { "demo1", "demo2" };
         }
 

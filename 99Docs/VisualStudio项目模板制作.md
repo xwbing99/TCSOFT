@@ -31,3 +31,7 @@
 
 
 
+#### 3. VS中选中项目，菜单->项目->导出模板
+
+#### 4. 复制生成的*.zip文件到Documents/Visual Studio 201x/Templates/目录下即可
+

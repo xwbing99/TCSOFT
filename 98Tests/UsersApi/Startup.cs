@@ -6,9 +6,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using System.IO;
+using System.Text;
 using TCSOFT.Consul;
 
-namespace WMSDemoApi
+namespace UsersApi
 {
     /// <summary>
     /// @author herowk
@@ -56,17 +57,8 @@ namespace WMSDemoApi
                 options.IncludeXmlComments(xmlPath);
             });
 
-            //Consul相关配置
             services.AddOptions();
             services.Configure<ConsulRegisterOptions>(Configuration.GetSection(Configuration["ConfigCenter:path"].Replace("/", ":")));
-
-            services.AddAuthentication("Bearer")
-                .AddIdentityServerAuthentication(options =>
-                {
-                    options.RequireHttpsMetadata = false;
-                    options.Authority = "http://localhost:5000";
-                    options.ApiName = "socialnetwork";
-                });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -94,9 +86,6 @@ namespace WMSDemoApi
             }
 
             app.UseHttpsRedirection();
-
-            app.UseAuthentication();
-
             app.UseMvc();
 
             //Swagger配置
@@ -113,7 +102,6 @@ namespace WMSDemoApi
             //注册到Consul
             TCSOFT.Consul.ConsulServiceRegister consulRegister = new TCSOFT.Consul.ConsulServiceRegister();
             consulRegister.ConsulRegister(Configuration, appLifeTime, consulRegisterOptions);
-
         }
     }
 }
