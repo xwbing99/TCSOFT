@@ -17,10 +17,6 @@
     <ProjectReference Include="..\..\00Infrastructure\TCSOFT.WebCore\TCSOFT.WebCore.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="mqserver.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 </Project>

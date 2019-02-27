@@ -34,7 +34,7 @@
       "routingKey": "",
       "typeName": "fanout",
       "preDeclareQueue": true,
-      "randomQueue": false
+      "randomQueue": true
     }
   }
 }

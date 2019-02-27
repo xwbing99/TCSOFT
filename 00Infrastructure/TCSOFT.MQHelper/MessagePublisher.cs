@@ -9,7 +9,7 @@ namespace TCSOFT.MQHelper
     /// @author herowk
     /// 一条消息多个消费者可同时消费
     /// </summary>
-    public class MessagePublisher : RabbitMQHelper
+    public class MessagePublisher : RabbitMQSenderHelper
     {
         /// <summary>
         /// 构造函数
@@ -23,7 +23,7 @@ namespace TCSOFT.MQHelper
         /// <param name="queueInfo">队列信息</param>
         /// <param name="messageContent">消息内容</param>
         /// <returns></returns>
-        public new bool SendMessage(QueueInfo queueInfo, string messageContent)
+        public override bool SendMessage(QueueInfo queueInfo, string messageContent)
         {
             //创建连接对象
             using (IConnection con = ConnFactory.CreateConnection())
@@ -34,6 +34,17 @@ namespace TCSOFT.MQHelper
                     //声明交换机
                     channel.ExchangeDeclare(exchange: queueInfo.ExchangeName
                                             , type: queueInfo.TypeName);
+                    //预声明队列
+                    if (queueInfo.PreDeclareQueue)
+                    {
+                        channel.QueueDeclare(
+                          queue: queueInfo.QueueName,
+                          durable: queueInfo.Durable,
+                          exclusive: queueInfo.Exclusive,
+                          autoDelete: queueInfo.AutoDelete,
+                          arguments: null
+                           );
+                    }
                     //消息内容
                     byte[] body = Encoding.UTF8.GetBytes(messageContent);
                     //发送消息

@@ -54,56 +54,10 @@ namespace TCSOFT.MQHelper
             queueInfo.ExchangeName = configuration[$"MQInfo:{queueId}:exchangeName"];
             queueInfo.RoutingKey = configuration[$"MQInfo:{queueId}:routingKey"];
             queueInfo.TypeName = configuration[$"MQInfo:{queueId}:typeName"];
+            queueInfo.PreDeclareQueue = System.Convert.ToBoolean(configuration[$"MQInfo:{queueId}:preDeclareQueue"]);
+            queueInfo.RandomQueue = System.Convert.ToBoolean(configuration[$"MQInfo:{queueId}:randomQueue"]);
 
             return queueInfo;
         }
-
-        #region "消息消费相关"
-        /// <summary>
-        /// 消费消息(根据配置信息)
-        /// </summary>
-        /// <param name="configuration">配置项</param>
-        /// <param name="queueId">队列ID</param>
-        /// <returns></returns>
-        public void StartConsumeByConfiguration(IConfiguration configuration
-                                                , string queueId)
-        {
-            QueueInfo queueInfo = GetQueueInfo(configuration, queueId);
-            StartConsumeMessage(queueInfo);
-        }
-
-        /// <summary>
-        /// 消费消息
-        /// </summary>
-        /// <param name="queueInfo">队列信息</param>
-        /// <returns></returns>
-        public void StartConsumeMessage(QueueInfo queueInfo) { }
-        #endregion "消息消费相关"
-
-        #region "消息发送相关"
-        /// <summary>
-        /// 发送消息(指定队列类型)
-        /// </summary>
-        /// <param name="configuration">配置项</param>
-        /// <param name="queueId">队列ID</param>
-        /// <param name="messageContent">消息内容</param>
-        /// <returns></returns>
-        public bool SendMessageByConfiguration(IConfiguration configuration
-                                                , string queueId
-                                                , string messageContent)
-        {
-            QueueInfo queueInfo = GetQueueInfo(configuration, queueId);
-
-            return SendMessage(queueInfo, messageContent);
-        }
-
-        /// <summary>
-        /// 发送消息
-        /// </summary>
-        /// <param name="queueInfo">队列信息</param>
-        /// <param name="messageContent">消息内容</param>
-        /// <returns></returns>
-        public bool SendMessage(QueueInfo queueInfo, string messageContent) { return false; }
-        #endregion "消息发送相关"
     }
 }

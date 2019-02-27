@@ -6,7 +6,7 @@ using System.Text;
 
 namespace TCSOFT.MQHelper
 {
-    public class MessageSubscriber : RabbitMQHelper
+    public class MessageSubscriber : RabbitMQConsumerHelper
     {
         /// <summary>
         /// 消息消费者实例
@@ -18,7 +18,8 @@ namespace TCSOFT.MQHelper
         /// </summary>
         /// <param name="configuration">配置项</param>
         /// <param name="messageConsumer">消费者实例</param>
-        public MessageSubscriber(IConfiguration configuration, IMessageConsumer messageConsumer) : base(configuration)
+        public MessageSubscriber(IConfiguration configuration
+                                , IMessageConsumer messageConsumer) : base(configuration)
         {
             MessageConsumer = messageConsumer;
         }
@@ -28,7 +29,7 @@ namespace TCSOFT.MQHelper
         /// </summary>
         /// <param name="queueInfo">队列信息</param>
         /// <returns></returns>
-        public new void StartConsumeMessage(QueueInfo queueInfo)
+        public override void StartConsumeMessage(QueueInfo queueInfo)
         {
             //创建连接对象
             using (IConnection con = ConnFactory.CreateConnection())
@@ -36,20 +37,27 @@ namespace TCSOFT.MQHelper
                 //创建连接会话对象
                 using (IModel channel = con.CreateModel())
                 {
+                    //队列名附加
+                    string sQueueNameRandom = string.Empty;
+
+                    if (queueInfo.RandomQueue)
+                    {
+                        sQueueNameRandom = "_" + TCSOFT.Utils.StringTools.GetRandomString(4, true, true, true, false, string.Empty);
+                    }
+
                     //声明交换机
                     channel.ExchangeDeclare(exchange: queueInfo.ExchangeName
                                             , type: queueInfo.TypeName);
-
                     //声明队列
                     channel.QueueDeclare(
-                              queue: queueInfo.QueueName
+                              queue: queueInfo.QueueName + sQueueNameRandom
                               , durable: queueInfo.Durable
                               , exclusive: queueInfo.Exclusive
                               , autoDelete: queueInfo.AutoDelete
                               , arguments: null
                                );
                     //绑定队列
-                    channel.QueueBind(queue: queueInfo.QueueName
+                    channel.QueueBind(queue: queueInfo.QueueName + sQueueNameRandom
                                     , exchange: queueInfo.ExchangeName
                                     , routingKey: queueInfo.RoutingKey);
 
@@ -69,7 +77,7 @@ namespace TCSOFT.MQHelper
                     };
 
                     //开启监听
-                    channel.BasicConsume(queue: queueInfo.QueueName
+                    channel.BasicConsume(queue: queueInfo.QueueName + sQueueNameRandom
                                         , autoAck: queueInfo.AutoDelete
                                         , consumer: consumer);
                     while (true) { }

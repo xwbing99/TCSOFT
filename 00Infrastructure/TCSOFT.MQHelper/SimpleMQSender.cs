@@ -9,7 +9,7 @@ namespace TCSOFT.MQHelper
     /// @author
     /// 一对一或一对多，一条消息一个消费者
     /// </summary>
-    public class SimpleMQSender : RabbitMQHelper
+    public class SimpleMQSender : RabbitMQSenderHelper
     {
         /// <summary>
         /// 构造函数
@@ -23,7 +23,7 @@ namespace TCSOFT.MQHelper
         /// <param name="queueInfo">队列信息</param>
         /// <param name="messageContent">消息内容</param>
         /// <returns></returns>
-        public new bool SendMessage(QueueInfo queueInfo, string messageContent)
+        public override bool SendMessage(QueueInfo queueInfo, string messageContent)
         {
             //创建连接对象
             using (IConnection con = ConnFactory.CreateConnection())

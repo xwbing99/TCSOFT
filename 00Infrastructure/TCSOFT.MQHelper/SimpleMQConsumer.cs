@@ -6,7 +6,7 @@ using System.Text;
 
 namespace TCSOFT.MQHelper
 {
-    public class SimpleMQConsumer : RabbitMQHelper
+    public class SimpleMQConsumer : RabbitMQConsumerHelper
     {
         /// <summary>
         /// 消息消费者实例
@@ -18,7 +18,8 @@ namespace TCSOFT.MQHelper
         /// </summary>
         /// <param name="configuration">配置项</param>
         /// <param name="messageConsumer">消费者实例</param>
-        public SimpleMQConsumer(IConfiguration configuration, IMessageConsumer messageConsumer) : base(configuration)
+        public SimpleMQConsumer(IConfiguration configuration
+                                , IMessageConsumer messageConsumer) : base(configuration)
         {
             MessageConsumer = messageConsumer;
         }
@@ -28,7 +29,7 @@ namespace TCSOFT.MQHelper
         /// </summary>
         /// <param name="queueInfo">队列信息</param>
         /// <returns></returns>
-        public new void StartConsumeMessage(QueueInfo queueInfo)
+        public override void StartConsumeMessage(QueueInfo queueInfo)
         {
             //创建连接对象
             using (IConnection con = ConnFactory.CreateConnection())
