@@ -10,7 +10,7 @@ namespace RabbitMQTester
         [TestMethod]
         public void TestSimpleSendMesage()
         {
-            IConfiguration configuration = (new ConfigurationBuilder()).AddJsonFile("mqserver.json").Build();
+            IConfiguration configuration = (new ConfigurationBuilder()).AddJsonFile("mqconfig.json").Build();
 
             RabbitMQSenderHelper simpleMQSender = new SimpleMQSender(configuration);
             simpleMQSender.SendMessageByQueueId("testsimplequeue", "Hello MQ! " + System.DateTime.Now.ToString("yyyyMMddHHmmss"));
@@ -19,7 +19,7 @@ namespace RabbitMQTester
         [TestMethod]
         public void TestMessagePublisher()
         {
-            IConfiguration configuration = (new ConfigurationBuilder()).AddJsonFile("mqserver.json").Build();
+            IConfiguration configuration = (new ConfigurationBuilder()).AddJsonFile("mqconfig.json").Build();
             RabbitMQSenderHelper messagePublisher = new MessagePublisher(configuration);
             messagePublisher.SendMessageByQueueId("testexqueue", "Hello MQ! " + System.DateTime.Now.ToString("yyyyMMddHHmmss"));
         }

@@ -13,7 +13,7 @@ namespace RabbitMQTester
         [TestMethod]
         public void TestSimpleConsumeMesage()
         {
-            IConfiguration configuration = (new ConfigurationBuilder()).AddJsonFile("mqserver.json").Build();
+            IConfiguration configuration = (new ConfigurationBuilder()).AddJsonFile("mqconfig.json").Build();
             IMessageConsumer messageConsumer = new TestMQConsumer();
 
             RabbitMQConsumerHelper simpleMQConsumer = new SimpleMQConsumer(configuration, messageConsumer);
@@ -23,7 +23,7 @@ namespace RabbitMQTester
         [TestMethod]
         public void TestMesageSubscriber()
         {
-            IConfiguration configuration = (new ConfigurationBuilder()).AddJsonFile("mqserver.json").Build();
+            IConfiguration configuration = (new ConfigurationBuilder()).AddJsonFile("mqconfig.json").Build();
             IMessageConsumer messageConsumer = new TestMQConsumer();
 
             RabbitMQConsumerHelper simpleMQConsumer = new SimpleMQConsumer(configuration, messageConsumer);

@@ -22,4 +22,10 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="mqconfigtmpl.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

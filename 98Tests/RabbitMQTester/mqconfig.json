@@ -1,0 +1,40 @@
+{
+  "exclude": [
+    "**/bin",
+    "**/bower_components",
+    "**/jspm_packages",
+    "**/node_modules",
+    "**/obj",
+    "**/platforms"
+  ],
+  "RabbitMQ": {
+    "IP": "192.168.0.9",
+    "Port": "5672",
+    "UserName": "testuser",
+    "Password": "123456"
+  },
+  "MQInfo": {
+    "testsimplequeue": {
+      "queueName": "testqueue",
+      "durable": true,
+      "exclusive": false,
+      "autoDelete": false,
+      "exchangeName": "",
+      "routingKey": "testqueue",
+      "typeName": "",
+      "preDeclareQueue": false,
+      "randomQueue": false
+    },
+    "testexqueue": {
+      "queueName": "testexqueue",
+      "durable": true,
+      "exclusive": false,
+      "autoDelete": false,
+      "exchangeName": "extest",
+      "routingKey": "",
+      "typeName": "fanout",
+      "preDeclareQueue": true,
+      "randomQueue": true
+    }
+  }
+}
