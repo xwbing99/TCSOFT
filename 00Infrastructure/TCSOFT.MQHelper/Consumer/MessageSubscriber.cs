@@ -4,9 +4,9 @@ using RabbitMQ.Client.Events;
 using System;
 using System.Text;
 
-namespace TCSOFT.MQHelper
+namespace TCSOFT.MQHelper.Consumer
 {
-    public class MessageSubscriber : RabbitMQConsumerHelper
+    public class MessageSubscriber : MessageConsumerHelper
     {
         /// <summary>
         /// 消息消费者实例

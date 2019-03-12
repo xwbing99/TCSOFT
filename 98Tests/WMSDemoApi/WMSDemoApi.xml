@@ -29,7 +29,7 @@
             API示例
             </summary>
         </member>
-        <member name="M:WMSDemoApi.Controllers.ValuesController.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.AspNetCore.Hosting.IApplicationLifetime,Microsoft.Extensions.Options.IOptionsSnapshot{TCSOFT.Consul.ConsulRegisterOptions})">
+        <member name="M:WMSDemoApi.Controllers.ValuesController.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.AspNetCore.Hosting.IApplicationLifetime,Microsoft.Extensions.Options.IOptionsSnapshot{TCSOFT.Consul.ConsulRegisterOptions},Microsoft.Extensions.Caching.Distributed.IDistributedCache)">
             <summary>
             构造函数
             </summary>

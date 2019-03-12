@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace TCSOFT.Consul
+namespace TCSOFT.ConfigManager
 {
     public class ConsulConfigurationSource : IConfigurationSource
     {

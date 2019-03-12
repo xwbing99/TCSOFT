@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace RabbitMQTester
+namespace MQConsumerDemo
 {
-    public class TestMQConsumer : TCSOFT.MQHelper.Consumer.IMessageConsumer
+    public class TestMQConsumer : TCSOFT.MQHelper.IMessageConsumer
     {
         public bool ConsumeMessage(string messageContent)
         {

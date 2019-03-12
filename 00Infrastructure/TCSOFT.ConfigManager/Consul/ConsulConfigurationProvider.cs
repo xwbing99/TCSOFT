@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TCSOFT.Consul
+namespace TCSOFT.ConfigManager
 {
     /// <summary>
     /// Consul配置器
@@ -109,7 +109,7 @@ namespace TCSOFT.Consul
                     }
                     var tokens = JToken.Parse(await response.Content.ReadAsStringAsync());
                     return tokens
-                                .Select(k => KeyValuePair.Create
+                                .Select(k => new KeyValuePair<string, JToken>
                                 (
                                     k.Value<string>("Key").Substring(0),
                                     k.Value<string>("Value") != null ? JToken.Parse(Encoding.UTF8.GetString(Convert.FromBase64String(k.Value<string>("Value")))) : null
@@ -132,17 +132,18 @@ namespace TCSOFT.Consul
                 yield break;
             foreach (var property in value)
             {
+                //$"{tuple.Key}/{property.Key}"
                 var propertyKey = $"{tuple.Key}/{property.Key}";
                 switch (property.Value.Type)
                 {
                     case JTokenType.Object:
-                        foreach (var item in Flatten(KeyValuePair.Create(propertyKey, property.Value)))
+                        foreach (var item in Flatten(new KeyValuePair<string, JToken>(propertyKey, property.Value)))
                             yield return item;
                         break;
                     case JTokenType.Array:
                         break;
                     default:
-                        yield return KeyValuePair.Create(propertyKey, property.Value.Value<string>());
+                        yield return new KeyValuePair<string, string>(propertyKey, property.Value.Value<string>());
                         break;
                 }
             }

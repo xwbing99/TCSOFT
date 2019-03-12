@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TCSOFT.MQHelper
+namespace TCSOFT.MQHelper.Consumer
 {
     /// <summary>
     /// 消息消费者接口

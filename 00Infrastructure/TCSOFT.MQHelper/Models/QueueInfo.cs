@@ -21,8 +21,10 @@ namespace TCSOFT.MQHelper
         public string RoutingKey { get; set; }
         //消息模式类型
         public string TypeName { get; set; }
-        //是否预定义队列
-        public bool PreDeclareQueue { get; set; }
+        //定义交换机
+        public bool DeclareExchange { get; set; }
+        //定义队列
+        public bool DeclareQueue { get; set; }
         //是否生成随机队列
         public bool RandomQueue { get; set; }
         #endregion "属性区"
@@ -37,7 +39,8 @@ namespace TCSOFT.MQHelper
                         , string routingKey = ""
                         , bool autoDelete = false
                         , string typeName = ""
-                        , bool preDeclareQueue = false
+                        , bool declareExchange = false
+                        , bool declareQueue = true
                         , bool randomQueue = false)
         {
             QueueName = queueName;
@@ -47,7 +50,8 @@ namespace TCSOFT.MQHelper
             RoutingKey = routingKey;
             AutoDelete = autoDelete;
             TypeName = typeName;
-            PreDeclareQueue = preDeclareQueue;
+            DeclareExchange = declareExchange;
+            DeclareQueue = declareQueue;
             RandomQueue = randomQueue;
         }
     }

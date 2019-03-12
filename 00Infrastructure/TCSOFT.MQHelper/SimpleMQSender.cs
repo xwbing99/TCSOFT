@@ -9,7 +9,7 @@ namespace TCSOFT.MQHelper
     /// @author
     /// 一对一或一对多，一条消息一个消费者
     /// </summary>
-    public class SimpleMQSender : RabbitMQSenderHelper
+    public class SimpleMQSender : MessageSenderHelper
     {
         /// <summary>
         /// 构造函数

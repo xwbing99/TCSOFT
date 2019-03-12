@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
@@ -14,10 +15,11 @@ namespace WMSDemoApi.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ValuesController : TCBaseController
     {
         private static string userForPut = string.Empty;
+        private IDistributedCache _Cache;
 
         /// <summary>
         /// 构造函数
@@ -27,16 +29,17 @@ namespace WMSDemoApi.Controllers
         /// <param name="options">Consul注册配置项</param>
         public ValuesController(IConfiguration configuration
                                 , IApplicationLifetime appLifeTime
-                                , IOptionsSnapshot<ConsulRegisterOptions> options) : base(configuration, appLifeTime, options)
+                                , IOptionsSnapshot<ConsulRegisterOptions> options
+                                , IDistributedCache Cache) : base(configuration, appLifeTime, options)
         {
+            _Cache = Cache;
         }
 
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            var claims = User.Claims;
-            return new string[] { "demo1", "demo2" };
+            return new string[] { "demo1", "demo2", System.Text.Encoding.Default.GetString(_Cache.Get("hello")) };
         }
 
         /// <summary>

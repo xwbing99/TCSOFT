@@ -22,7 +22,8 @@
       "exchangeName": "",
       "routingKey": "testqueue",
       "typeName": "",
-      "preDeclareQueue": false,
+      "declareExchange": false,
+      "declareQueue": false,
       "randomQueue": false
     },
     "testexqueue": {
@@ -33,7 +34,8 @@
       "exchangeName": "extest",
       "routingKey": "",
       "typeName": "fanout",
-      "preDeclareQueue": true,
+      "declareExchange": false,
+      "declareQueue": true,
       "randomQueue": true
     }
   }

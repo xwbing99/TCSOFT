@@ -5,14 +5,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Consumer\MessageSubscriber.cs" />
+    <Compile Remove="Consumer\SimpleMQConsumer.cs" />
+    <Compile Remove="Consumer\SimpleMQConsumerFactory.cs" />
+    <Compile Remove="MessagePublisher.cs" />
     <Compile Remove="QueueType.cs" />
+    <Compile Remove="SimpleMQSender.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="RabbitMQ.Client" Version="5.1.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TCSOFT.ConfigManager\TCSOFT.ConfigManager.csproj" />
     <ProjectReference Include="..\TCSOFT.Utils\TCSOFT.Utils.csproj" />
   </ItemGroup>
 
@@ -23,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="mqconfigtmpl.json">
+    <None Update="Base\mqconfigtmpl.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

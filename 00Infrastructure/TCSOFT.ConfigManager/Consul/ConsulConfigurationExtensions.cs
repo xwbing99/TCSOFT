@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 
-namespace TCSOFT.Consul
+namespace TCSOFT.ConfigManager
 {
     /// <summary>
     /// Consul配置扩展类
@@ -43,17 +42,17 @@ namespace TCSOFT.Consul
         }
 
         /// <summary>
-        /// 更新重注册标志
+        /// 更新配置信息
         /// </summary>
         /// <param name="options">配置项</param>
-        public static async System.Threading.Tasks.Task UpdateConsulConfigAsync(IConfiguration configuration, IOptions<ConsulRegisterOptions> options)
+        public static async System.Threading.Tasks.Task UpdateConfigAsync<T>(IConfiguration configuration, T configContent)
         {
-            string configString = Newtonsoft.Json.JsonConvert.SerializeObject(options.Value, Newtonsoft.Json.Formatting.Indented);
-            
+            string configString = Newtonsoft.Json.JsonConvert.SerializeObject(configContent, Newtonsoft.Json.Formatting.Indented);
+
             MemoryStream ms = new MemoryStream();
             //将资料写入MemoryStream
             byte[] bstr = Encoding.Default.GetBytes(configString);
-            ms.Write(bstr);
+            ms.Write(bstr, 0, bstr.Length);
 
             //一定要在这设定Position
             ms.Position = 0;
@@ -65,5 +64,6 @@ namespace TCSOFT.Consul
             //由HttpClient发出Put Method
             HttpResponseMessage response = await client.PutAsync($"{ configuration["ConfigCenter:Uri"] }/v1/kv/{ configuration["ConfigCenter:path"] }", content);
         }
+
     }
 }

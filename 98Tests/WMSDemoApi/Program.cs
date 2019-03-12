@@ -31,8 +31,9 @@ namespace WMSDemoApi
                     var configuration = configBuilder.Build();
 
                     //加载Consul配置中心相关配置
-                    configBuilder.AddConsul(new[] { configuration["ConfigCenter:Uri"] }
-                                , configuration["ConfigCenter:path"]);
+                    TCSOFT.ConfigManager.ConsulConfigurationExtensions.AddConsul(configBuilder
+                                                                , new[] { configuration["ConfigCenter:Uri"] }
+                                                                , configuration["ConfigCenter:path"]);
                 })
                 .UseStartup<Startup>();
     }

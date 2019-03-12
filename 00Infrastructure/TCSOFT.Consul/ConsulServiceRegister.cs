@@ -57,7 +57,7 @@ namespace TCSOFT.Consul
 
             //更新远程配置
             consulRegisterOptions.Value.ReRegister = false;
-            ConsulConfigurationExtensions.UpdateConsulConfigAsync(configuration, consulRegisterOptions).Wait();
+            TCSOFT.ConfigManager.ConsulConfigurationExtensions.UpdateConfigAsync<ConsulRegisterOptions>(configuration, consulRegisterOptions.Value).Wait();
         }
 
         /// <summary>

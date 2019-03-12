@@ -9,7 +9,7 @@ namespace TCSOFT.MQHelper
     /// @author herowk
     /// 一条消息多个消费者可同时消费
     /// </summary>
-    public class MessagePublisher : RabbitMQSenderHelper
+    public class MessagePublisher : MessageSenderHelper
     {
         /// <summary>
         /// 构造函数
@@ -35,7 +35,7 @@ namespace TCSOFT.MQHelper
                     channel.ExchangeDeclare(exchange: queueInfo.ExchangeName
                                             , type: queueInfo.TypeName);
                     //预声明队列
-                    if (queueInfo.PreDeclareQueue)
+                    if (queueInfo.DeclareQueue)
                     {
                         channel.QueueDeclare(
                           queue: queueInfo.QueueName,

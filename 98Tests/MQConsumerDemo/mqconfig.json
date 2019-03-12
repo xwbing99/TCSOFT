@@ -7,10 +7,6 @@
     "**/obj",
     "**/platforms"
   ],
-  "ConfigCenter": {
-    "Uri":"",
-    "path": ""
-  },
   "RabbitMQ": {
     "IP": "192.168.0.9",
     "Port": "5672",
@@ -26,8 +22,8 @@
       "exchangeName": "",
       "routingKey": "testqueue",
       "typeName": "",
-      "declareExchange": false,
-      "declareQueue": true,
+      "declareExchange": true,
+      "declareQueue": false,
       "randomQueue": false
     },
     "testexqueue": {
@@ -43,7 +39,7 @@
       "randomQueue": false
     },
     "usanews": {
-      "queueName": "",
+      "queueName": "usanews",
       "durable": true,
       "exclusive": false,
       "autoDelete": false,
@@ -55,7 +51,7 @@
       "randomQueue": true
     },
     "usaweather": {
-      "queueName": "",
+      "queueName": "usaweather",
       "durable": true,
       "exclusive": false,
       "autoDelete": false,
@@ -67,7 +63,7 @@
       "randomQueue": true
     },
     "europenews": {
-      "queueName": "",
+      "queueName": "europenews",
       "durable": true,
       "exclusive": false,
       "autoDelete": false,
@@ -79,12 +75,60 @@
       "randomQueue": true
     },
     "europeweather": {
-      "queueName": "",
+      "queueName": "europeweather",
       "durable": true,
       "exclusive": false,
       "autoDelete": false,
       "exchangeName": "extest",
       "routingKey": "europe.weather",
+      "typeName": "topic",
+      "declareExchange": true,
+      "declareQueue": false,
+      "randomQueue": true
+    },
+    "news": {
+      "queueName": "news",
+      "durable": true,
+      "exclusive": false,
+      "autoDelete": false,
+      "exchangeName": "extest",
+      "routingKey": "#.news",
+      "typeName": "topic",
+      "declareExchange": true,
+      "declareQueue": false,
+      "randomQueue": true
+    },
+    "weather": {
+      "queueName": "weather",
+      "durable": true,
+      "exclusive": false,
+      "autoDelete": false,
+      "exchangeName": "extest",
+      "routingKey": "#.weather",
+      "typeName": "topic",
+      "declareExchange": true,
+      "declareQueue": false,
+      "randomQueue": true
+    },
+    "usa": {
+      "queueName": "usa",
+      "durable": true,
+      "exclusive": false,
+      "autoDelete": false,
+      "exchangeName": "extest",
+      "routingKey": "usa.#",
+      "typeName": "topic",
+      "declareExchange": true,
+      "declareQueue": false,
+      "randomQueue": true
+    },
+    "europe": {
+      "queueName": "europe",
+      "durable": true,
+      "exclusive": false,
+      "autoDelete": false,
+      "exchangeName": "extest",
+      "routingKey": "europe.#",
       "typeName": "topic",
       "declareExchange": true,
       "declareQueue": false,

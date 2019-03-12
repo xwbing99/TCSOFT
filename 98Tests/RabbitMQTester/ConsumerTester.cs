@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TCSOFT.MQHelper;
+using TCSOFT.MQHelper.Consumer;
 
 namespace RabbitMQTester
 {
@@ -13,21 +13,13 @@ namespace RabbitMQTester
         [TestMethod]
         public void TestSimpleConsumeMesage()
         {
-            IConfiguration configuration = (new ConfigurationBuilder()).AddJsonFile("mqconfig.json").Build();
-            IMessageConsumer messageConsumer = new TestMQConsumer();
-
-            RabbitMQConsumerHelper simpleMQConsumer = new SimpleMQConsumer(configuration, messageConsumer);
-            simpleMQConsumer.StartConsumeByQueueId("testsimplequeue");
+            MessageConsumerFactory.Instance("http://192.168.0.24:8500", "MQInfo/MQInfo", new TestMQConsumer()).StartConsumeByQueueId("testsimplequeue");
         }
 
         [TestMethod]
         public void TestMesageSubscriber()
         {
-            IConfiguration configuration = (new ConfigurationBuilder()).AddJsonFile("mqconfig.json").Build();
-            IMessageConsumer messageConsumer = new TestMQConsumer();
-
-            RabbitMQConsumerHelper simpleMQConsumer = new SimpleMQConsumer(configuration, messageConsumer);
-            simpleMQConsumer.StartConsumeByQueueId("testexqueue");
+            MessageConsumerFactory.Instance("mqconfig.json", new TestMQConsumer()).StartConsumeByQueueId("testexqueue"); ;
         }
     }
 }

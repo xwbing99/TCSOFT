@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Redis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using System.IO;
 using TCSOFT.Consul;
+using TCSOFT.RedisCacheHelper;
 
 namespace WMSDemoApi
 {
@@ -60,6 +62,7 @@ namespace WMSDemoApi
             services.AddOptions();
             services.Configure<ConsulRegisterOptions>(Configuration.GetSection(Configuration["ConfigCenter:path"].Replace("/", ":")));
 
+            //IdentityServer相关配置
             services.AddAuthentication("Bearer")
                 .AddIdentityServerAuthentication(options =>
                 {
@@ -67,6 +70,22 @@ namespace WMSDemoApi
                     options.Authority = "http://localhost:5000";
                     options.ApiName = "socialnetwork";
                 });
+
+            //将Redis分布式缓存服务添加到服务中
+            services.AddDistributedRedisCache(options =>
+            {
+                //用于连接Redis的配置  Configuration.GetConnectionString("RedisConnectionString")读取配置信息的串
+                options.Configuration = "localhost:7000";// Configuration.GetConnectionString("RedisConnectionString");
+                //Redis实例名RedisDistributedCache
+                options.InstanceName = "RedisDistributedCache";
+                //options.
+            });
+
+            //services.AddSingleton(typeof(ICacheService), new RedisCacheHelper(new RedisCacheOptions
+            //{
+            //    Configuration = "",
+            //    InstanceName = "tcwms"
+            //}, 0));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
