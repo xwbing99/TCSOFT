@@ -19,7 +19,7 @@ namespace RabbitMQTester
         [TestMethod]
         public void TestMesageSubscriber()
         {
-            MessageConsumerFactory.Instance("mqconfig.json", new TestMQConsumer()).StartConsumeByQueueId("testexqueue"); ;
+            MessageConsumerFactory.Instance("mqconfig.json", new TestMQConsumer()).StartConsumeByQueueId("testexqueue");
         }
     }
 }

@@ -26,8 +26,6 @@
       "exchangeName": "",
       "routingKey": "testqueue",
       "typeName": "",
-      "declareExchange": false,
-      "declareQueue": true,
       "randomQueue": false
     },
     "testexqueue": {
@@ -38,8 +36,6 @@
       "exchangeName": "exfanout",
       "routingKey": "",
       "typeName": "fanout",
-      "declareExchange": true,
-      "declareQueue": true,
       "randomQueue": false
     },
     "usanews": {
@@ -50,8 +46,6 @@
       "exchangeName": "extest",
       "routingKey": "usa.news",
       "typeName": "topic",
-      "declareExchange": true,
-      "declareQueue": false,
       "randomQueue": true
     },
     "usaweather": {
@@ -62,8 +56,6 @@
       "exchangeName": "extest",
       "routingKey": "usa.weather",
       "typeName": "topic",
-      "declareExchange": true,
-      "declareQueue": false,
       "randomQueue": true
     },
     "europenews": {
@@ -74,8 +66,6 @@
       "exchangeName": "extest",
       "routingKey": "europe.news",
       "typeName": "topic",
-      "declareExchange": true,
-      "declareQueue": false,
       "randomQueue": true
     },
     "europeweather": {
@@ -86,8 +76,6 @@
       "exchangeName": "extest",
       "routingKey": "europe.weather",
       "typeName": "topic",
-      "declareExchange": true,
-      "declareQueue": false,
       "randomQueue": true
     }
   }

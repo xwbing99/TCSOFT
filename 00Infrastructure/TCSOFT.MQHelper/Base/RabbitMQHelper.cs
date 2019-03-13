@@ -80,8 +80,6 @@ namespace TCSOFT.MQHelper
             queueInfo.ExchangeName = configuration[$"{KeyPre}MQInfo:{queueId}:exchangeName"];
             queueInfo.RoutingKey = configuration[$"{KeyPre}MQInfo:{queueId}:routingKey"];
             queueInfo.TypeName = configuration[$"{KeyPre}MQInfo:{queueId}:typeName"];
-            queueInfo.DeclareExchange = System.Convert.ToBoolean(configuration[$"{KeyPre}MQInfo:{queueId}:declareExchange"]);
-            queueInfo.DeclareQueue = System.Convert.ToBoolean(configuration[$"{KeyPre}MQInfo:{queueId}:declareQueue"]);
             queueInfo.RandomQueue = System.Convert.ToBoolean(configuration[$"{KeyPre}MQInfo:{queueId}:randomQueue"]);
 
             return queueInfo;

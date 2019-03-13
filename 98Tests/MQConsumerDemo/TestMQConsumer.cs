@@ -2,7 +2,7 @@
 
 namespace MQConsumerDemo
 {
-    public class TestMQConsumer : TCSOFT.MQHelper.IMessageConsumer
+    public class TestMQConsumer : TCSOFT.MQHelper.Consumer.IMessageConsumer
     {
         public bool ConsumeMessage(string messageContent)
         {

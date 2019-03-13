@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 using TCSOFT.MQHelper;
+using TCSOFT.MQHelper.Consumer;
 
 namespace MQConsumerDemo
 {
@@ -8,17 +9,20 @@ namespace MQConsumerDemo
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello " + args[0]);
+            string queueId = string.Empty;
+            if (args.Length > 0)
+            {
+                queueId = args[0];
+            }
+            else
+            {
+                Console.WriteLine("请输入队列ID：");
+                queueId = Console.ReadLine();
+            }
 
-            IConfiguration configuration = (new ConfigurationBuilder()).AddJsonFile("mqconfig.json").Build();
-            IMessageConsumer messageConsumer = new TestMQConsumer();
-            //Simple&Worker测试
-            //RabbitMQConsumerHelper simpleMessageConsumer = new SimpleMQConsumer(configuration, messageConsumer);
-            //simpleMessageConsumer.StartConsumeByQueueId(args[0]);
-
-            //订阅者测试
-            RabbitMQConsumerHelper messageSubscriber = new MessageSubscriber(configuration, messageConsumer);
-            messageSubscriber.StartConsumeByQueueId(args[0]);
+            Console.WriteLine("Hello " + queueId);
+            //启动消费者
+            MessageConsumerFactory.Instance("mqconfig.json", new TestMQConsumer()).StartConsumeByQueueId(queueId);
         }
     }
 }
