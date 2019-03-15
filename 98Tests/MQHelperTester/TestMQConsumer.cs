@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RabbitMQTester
+namespace MQHelperTester
 {
     public class TestMQConsumer : TCSOFT.MQHelper.Consumer.IMessageConsumer
     {

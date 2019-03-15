@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Extensions.Configuration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TCSOFT.MQHelper.Consumer;
 
-namespace RabbitMQTester
+namespace MQHelperTester
 {
     [TestClass]
     public class ConsumerTester

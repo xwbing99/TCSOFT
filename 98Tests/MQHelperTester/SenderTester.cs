@@ -1,8 +1,7 @@
-using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TCSOFT.MQHelper.Sender;
 
-namespace RabbitMQTester
+namespace MQHelperTester
 {
     [TestClass]
     public class SenderTester
