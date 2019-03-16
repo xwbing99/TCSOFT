@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\00Infrastructure\TCSOFT.DBHelper\TCSOFT.DBHelper.csproj" />
+    <ProjectReference Include="..\..\..\00Infrastructure\TCSOFT.DBHelper\TCSOFT.DBHelper.csproj" />
   </ItemGroup>
 
 </Project>
