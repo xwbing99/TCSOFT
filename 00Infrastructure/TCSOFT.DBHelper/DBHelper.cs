@@ -2,8 +2,16 @@
 
 namespace TCSOFT.DBHelper
 {
+    /// <summary>
+    /// 数据库操作类
+    /// </summary>
     public static class DBHelper
     {
+        /// <summary>
+        /// MySql实例
+        /// </summary>
+        /// <param name="connectString">连接字符串</param>
+        /// <returns></returns>
         public static SqlSugarClient MySqlInstance(string connectString)
         {
             return new SqlSugarClient(new ConnectionConfig()
@@ -15,6 +23,11 @@ namespace TCSOFT.DBHelper
             });
         }
 
+        /// <summary>
+        /// SqlServer实例
+        /// </summary>
+        /// <param name="connectString">连接字符串</param>
+        /// <returns></returns>
         public static SqlSugarClient SqlServerInstance(string connectString)
         {
             return new SqlSugarClient(new ConnectionConfig()
