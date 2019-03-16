@@ -33,5 +33,28 @@ namespace DBHelperTester
         [SugarColumn(ColumnName = "name")]
         public string Name { get; set; }
 
+        /// <summary>
+        /// Desc:
+        /// Default:
+        /// Nullable:True
+        /// </summary>          
+        [SugarColumn(ColumnName = "memo1", IsNullable = true)]
+        public string Memo1 { get; set; }
+
+        /// <summary>
+        /// Desc:
+        /// Default:
+        /// Nullable:True
+        /// </summary>          
+        [SugarColumn(ColumnName = "memo2", IsNullable = true)]
+        public string Memo2 { get; set; }
+
+        /// <summary>
+        /// Desc:
+        /// Default:
+        /// Nullable:True
+        /// </summary>          
+        [SugarColumn(ColumnName = "memo3", IsNullable = true)]
+        public string Memo3 { get; set; }
     }
 }

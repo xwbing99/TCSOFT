@@ -40,6 +40,9 @@ namespace DBHelperTester
             var data2 = new Student() { Id = 1, Name = "herowk" };
             db.Updateable(data2).ExecuteCommand();
 
+            /*¸üÐÂ*/
+            var data3 = new Student() { Id = 2, Memo2 = "herowk" };
+            db.Updateable(data3).UpdateColumns(it => new { it.Memo2 }).ExecuteCommand();
 
             /*É¾³ý*/
             db.Deleteable<Student>(1).ExecuteCommand();
