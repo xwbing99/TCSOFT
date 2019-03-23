@@ -7,24 +7,22 @@
     "**/obj",
     "**/platforms"
   ],
-  "RabbitMQ": {
+  "RabbitMQ": { //消息服务器信息
     "IP": "192.168.0.9",
     "Port": "5672",
     "UserName": "testuser",
     "Password": "123456"
   },
-  "MQInfo": {
-    "testsimplequeue": {
-      "queueName": "testqueue",
-      "durable": true,
-      "exclusive": false,
-      "autoDelete": false,
-      "exchangeName": "",
-      "routingKey": "testqueue",
-      "typeName": "",
-      "declareExchange": false,
-      "declareQueue": false,
-      "randomQueue": false
+  "MQInfo": { //队列定义信息
+    "testsimplequeue": { //队列ID
+      "queueName": "testqueue", //队列名
+      "durable": true, //是否持久化
+      "exclusive": false, //是否排他
+      "autoDelete": false, //是否自动删除
+      "exchangeName": "", //交换机名
+      "routingKey": "testqueue", //路由键
+      "typeName": "direct", //类型
+      "randomQueue": false //是否生成自动队列名后缀
     },
     "testexqueue": {
       "queueName": "testexqueue",
@@ -34,8 +32,6 @@
       "exchangeName": "extest",
       "routingKey": "",
       "typeName": "fanout",
-      "declareExchange": false,
-      "declareQueue": true,
       "randomQueue": true
     }
   }

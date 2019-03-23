@@ -42,6 +42,20 @@ namespace TCSOFT.ConfigManager
         }
 
         /// <summary>
+        /// 添加Consul配置项
+        /// </summary>
+        /// <param name="configurationBuilder">配置构造器</param>
+        /// <param name="consulUrls">Consul地址</param>
+        /// <param name="consulPath">配置项路径</param>
+        /// <returns></returns>
+        public static IConfigurationBuilder AddConsul(this IConfigurationBuilder configurationBuilder
+                                                        , string consulUrl
+                                                        , string consulPath)
+        {
+            return configurationBuilder.AddConsul(new List<string> { consulUrl }, consulPath);
+        }
+
+        /// <summary>
         /// 更新配置信息
         /// </summary>
         /// <param name="options">配置项</param>
