@@ -1,15 +1,15 @@
 ﻿using SqlSugar;
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Text;
 
-namespace DBHelperTester
+namespace TestTransEffect1
 {
     ///<summary>
     ///
     ///</summary>
-    [SugarTable("student")]
-    public partial class Student
+    [SugarTable("teacher")]
+    public partial class Teacher
     {
 
         /// <summary>

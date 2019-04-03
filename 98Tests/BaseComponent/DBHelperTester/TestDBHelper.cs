@@ -1,5 +1,7 @@
+using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DBHelperTester
@@ -7,45 +9,58 @@ namespace DBHelperTester
     [TestClass]
     public class TestDBHelper
     {
+
         [TestMethod]
-        public void TestDBOperation()
+        public void TestDBBulkInsert()
         {
-            var db = TCSOFT.DBHelper.DBHelper.MySqlInstance("server=localhost;uid=root;pwd=123456;database=testdb");
+            IConfiguration configuration = TCSOFT.ConfigManager.JsonConfigurationExtensions.AddConfigFile(new ConfigurationBuilder(), "appsettings.json").Build();
+            TCSOFT.DBHelper.DbContext<Student> dbContext = new TCSOFT.DBHelper.DbContext<Student>($"server={configuration["DBInfo:serverip"]};uid={configuration["DBInfo:uid"]};pwd={configuration["DBInfo:pwd"]};database={configuration["DBInfo:database"]}");
 
-            //用来打印Sql方便你调式    
-            db.Aop.OnLogExecuting = (sql, pars) =>
+            List<Student> listStudents = new List<Student>();
+            for (int i = 0; i < 100000; i++)
             {
-                Console.WriteLine(sql + "\r\n" +
-                db.Utilities.SerializeObject(pars.ToDictionary(it => it.ParameterName, it => it.Value)));
-                Console.WriteLine();
-            };
+                Student stu = new Student() { Name = $"herowk{i}" };
+                listStudents.Add(stu);
+            }
 
-            //db.DbFirst.CreateClassFile("d:/");
+            //批量插入
+            dbContext.CurrentDb.BulkInsert(listStudents);
+        }
 
-            /*查询*/
-            var list = db.Queryable<Student>().ToList();//查询所有
-            var getById = db.Queryable<Student>().InSingle(1);//根据主键查询
-            var getByWhere = db.Queryable<Student>().Where(it => it.Id == 1).ToList();//根据条件查询
-            var total = 0;
-            var getPage = db.Queryable<Student>().Where(it => it.Id == 1).ToPageList(1, 2, ref total);//根据分页查询
+        [TestMethod]
+        public void TestDBBulkDelete()
+        {
 
-            var data1 = new Student() { Name = "jimmy" };
-            db.Insertable<Student>(data1);
+            IConfiguration configuration = TCSOFT.ConfigManager.JsonConfigurationExtensions.AddConfigFile(new ConfigurationBuilder(), "appsettings.json").Build();
+            TCSOFT.DBHelper.DbContext<Student> dbContext = new TCSOFT.DBHelper.DbContext<Student>($"server={configuration["DBInfo:serverip"]};uid={configuration["DBInfo:uid"]};pwd={configuration["DBInfo:pwd"]};database={configuration["DBInfo:database"]}");
 
-            /*插入*/
-            var data = new Student() { Name = "jack" };
-            db.Insertable(data).ExecuteCommand();
+            List<Student> lstStudent = dbContext.CurrentDb.GetList();
 
-            /*更新*/
-            var data2 = new Student() { Id = 1, Name = "herowk" };
-            db.Updateable(data2).ExecuteCommand();
+            dbContext.CurrentDb.BulkDelete(lstStudent);
+        }
 
-            /*更新*/
-            var data3 = new Student() { Id = 2, Memo2 = "herowk", Name = "NULL" };
-            db.Updateable(data3).UpdateColumns(it => new { it.Memo2, it.Name }).ExecuteCommand();
+        [TestMethod]
+        public void TestDBTrans()
+        {
 
-            /*删除*/
-            db.Deleteable<Student>(1).ExecuteCommand();
+            IConfiguration configuration = TCSOFT.ConfigManager.JsonConfigurationExtensions.AddConfigFile(new ConfigurationBuilder(), "appsettings.json").Build();
+            TCSOFT.DBHelper.DbContext<Student> dbContextStudent = new TCSOFT.DBHelper.DbContext<Student>($"server={configuration["DBInfo:serverip"]};uid={configuration["DBInfo:uid"]};pwd={configuration["DBInfo:pwd"]};database={configuration["DBInfo:database"]}");
+            TCSOFT.DBHelper.DbContext<Teacher> dbContextTeacher = new TCSOFT.DBHelper.DbContext<Teacher>($"server={configuration["DBInfo:serverip"]};uid={configuration["DBInfo:uid"]};pwd={configuration["DBInfo:pwd"]};database={configuration["DBInfo:database"]}");
+            try
+            {
+                dbContextStudent.BeginTrans();
+
+                dbContextStudent.CurrentDb.Insert(new Student() { Name = "StudentTest" });
+
+                dbContextTeacher.CurrentDb.Insert(new Teacher() { Name = "TeacherTest" });//输出1
+
+                dbContextStudent.CommitTrans();
+                //throw new Exception("error");
+            }
+            catch (Exception ex)
+            {
+                dbContextStudent.RollbackTrans();
+            }
         }
     }
 }

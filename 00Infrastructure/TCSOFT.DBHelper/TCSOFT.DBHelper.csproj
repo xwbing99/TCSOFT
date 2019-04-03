@@ -5,11 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="BaseDataAccess.cs" />
+    <Compile Remove="DBContext_BK.cs" />
+    <Compile Remove="DBHelper.cs" />
     <Compile Remove="HttpRuntimeCache.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="sqlSugarCore" Version="4.9.9.2" />
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="sqlSugarCore" Version="4.9.9.4" />
   </ItemGroup>
 
   <ItemGroup>

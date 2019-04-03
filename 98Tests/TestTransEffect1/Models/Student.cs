@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Text;
 
-namespace DBHelperTester
+namespace TestTransEffect1
 {
     ///<summary>
     ///

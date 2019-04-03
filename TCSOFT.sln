@@ -49,6 +49,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MQHelperTester", "98Tests\B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedisCacheHelperTester", "98Tests\BaseComponent\RedisCacheHelperTester\RedisCacheHelperTester.csproj", "{D1F5ABBE-6B1C-440A-9CA6-49DB7E44E43D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestTransEffect1", "98Tests\TestTransEffect1\TestTransEffect1.csproj", "{14DB3D9D-D937-4277-B3E9-045B07D4E810}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -115,6 +117,10 @@ Global
 		{D1F5ABBE-6B1C-440A-9CA6-49DB7E44E43D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1F5ABBE-6B1C-440A-9CA6-49DB7E44E43D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1F5ABBE-6B1C-440A-9CA6-49DB7E44E43D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14DB3D9D-D937-4277-B3E9-045B07D4E810}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14DB3D9D-D937-4277-B3E9-045B07D4E810}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14DB3D9D-D937-4277-B3E9-045B07D4E810}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14DB3D9D-D937-4277-B3E9-045B07D4E810}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -136,6 +142,7 @@ Global
 		{BA439358-EA1A-498B-996C-AD5A10C4E5CF} = {9E2670B2-F52A-4BE6-A86D-1956A845AEC3}
 		{1D7B711B-CA8D-4229-826B-293F79D2313B} = {9E2670B2-F52A-4BE6-A86D-1956A845AEC3}
 		{D1F5ABBE-6B1C-440A-9CA6-49DB7E44E43D} = {9E2670B2-F52A-4BE6-A86D-1956A845AEC3}
+		{14DB3D9D-D937-4277-B3E9-045B07D4E810} = {17D5CCD3-B11F-4597-A36E-80807B98B600}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E14B125F-A4E5-4F8D-A2D9-F4ABFC7A00DB}
