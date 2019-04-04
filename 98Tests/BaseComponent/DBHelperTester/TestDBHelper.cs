@@ -62,5 +62,16 @@ namespace DBHelperTester
                 dbContextStudent.RollbackTrans();
             }
         }
+
+        [TestMethod]
+        public void TestDBInsert()
+        {
+
+            IConfiguration configuration = TCSOFT.ConfigManager.JsonConfigurationExtensions.AddConfigFile(new ConfigurationBuilder(), "appsettings.json").Build();
+            TCSOFT.DBHelper.DbContext<StudentEx> dbContext = new TCSOFT.DBHelper.DbContext<StudentEx>($"server={configuration["DBInfo:serverip"]};uid={configuration["DBInfo:uid"]};pwd={configuration["DBInfo:pwd"]};database={configuration["DBInfo:database"]}");
+
+            StudentEx stu = new StudentEx() { Name = $"herowk" };
+            dbContext.CurrentDb.Insert(stu);
+        }
     }
 }
