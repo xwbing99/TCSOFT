@@ -32,6 +32,19 @@ namespace TCSOFT.MQHelper.Consumer
             MessageConsumer = messageConsumer;
         }
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="hostName">主机地址</param>
+        /// <param name="port">端口号</param>
+        /// <param name="userName">用户名</param>
+        /// <param name="password">密码</param>
+        /// <param name="visualHost">虚拟主机</param>
+        public MessageConsumerHelper(string hostName
+                            , int port
+                            , string userName
+                            , string password
+                            , string visualHost) : base(hostName, port, userName, password, visualHost) { }
         #region "消息消费相关"
         /// <summary>
         /// 消费消息(根据配置信息)

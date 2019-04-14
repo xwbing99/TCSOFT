@@ -21,6 +21,19 @@ namespace TCSOFT.MQHelper.Sender
         /// <param name="keyPre">键前缀</param>
         public MessageSenderHelper(IConfiguration configuration, string keyPre) : base(configuration, keyPre) { }
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="hostName">主机地址</param>
+        /// <param name="port">端口号</param>
+        /// <param name="userName">用户名</param>
+        /// <param name="password">密码</param>
+        /// <param name="visualHost">虚拟主机</param>
+        public MessageSenderHelper(string hostName
+                            , int port
+                            , string userName
+                            , string password
+                            , string visualHost): base(hostName, port, userName, password, visualHost) { }
         #region "消息发送相关"
         /// <summary>
         /// 发送消息(指定队列类型)

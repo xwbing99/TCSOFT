@@ -17,14 +17,16 @@ namespace DBHelperTester
             TCSOFT.DBHelper.DbContext<Student> dbContext = new TCSOFT.DBHelper.DbContext<Student>($"server={configuration["DBInfo:serverip"]};uid={configuration["DBInfo:uid"]};pwd={configuration["DBInfo:pwd"]};database={configuration["DBInfo:database"]}");
 
             List<Student> listStudents = new List<Student>();
-            for (int i = 0; i < 100000; i++)
+            for (int i = 0; i < 100; i++)
             {
-                Student stu = new Student() { Name = $"herowk{i}" };
+                Student stu = new Student() { Name = $"testStudent-{i}" };
                 listStudents.Add(stu);
             }
 
             //ÅúÁ¿²åÈë
+            dbContext.BeginTrans();
             dbContext.CurrentDb.BulkInsert(listStudents);
+            dbContext.CommitTrans();
         }
 
         [TestMethod]
